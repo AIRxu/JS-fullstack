@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // object 对象字面量
+    let obj = {
+      name:'hb',
+      age:22
+    }
+    // 它不是一成不变的
+    // 可以对它 增 删 改 查
+    delete obj.name;
+    obj.school = 'ECUT';
+    console.log(obj);
+    // 赋值操作让obj和obj1指向同一个地址，所以之后的更改都会作用于两个对象
+    let obj1 = obj;
+    obj1.homeTown = 'jx';
+    console.log(obj1);
+    // obj 和 obj1 指向同一个内存地址
+
+    let arr1 = [0, 1, 2];
+    let arr2 = arr1;
+    // push方法：向数组里面添加元素
+    arr2.push(3);
+    console.log(arr1,'-',arr2);
+    // arr1 和 arr2 也指向同一个内存地址
+    
+    // 基本数据类型 互不相关
+    // str1 => 变量 'ECUT' => 值
+    let str1 = 'ECUT';
+    let str2 = str1;
+    str2 = 'ECIT';
+    console.log(str1,str2);
+    
+
+  </script>
+</body>
+</html>
