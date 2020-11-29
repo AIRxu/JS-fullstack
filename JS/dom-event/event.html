@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parent{
+      width: 300px;
+      height: 300px;
+      border: 1px solid #000;
+    }
+    .child{
+      width: 100px;
+      height: 100px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    parent
+    <div class="child">child</div>
+  </div>
+
+  <script>
+    const parent = document.querySelector('.parent');
+    const child = document.querySelector('.child');
+    
+    parent.addEventListener('click', ()=> {
+      console.log('parent被点击了！');
+    })
+    child.addEventListener('click', (event)=> {
+      console.log('child被点击了！');
+      // 阻止冒泡事件
+      event.stopPropagation();
+    })
+    document.addEventListener('click', ()=> {
+      console.log('document被点击了！');
+    })
+    window.addEventListener('click', ()=> {
+      console.log('window被点击了！');
+    })
+
+    // parent包含了child，那么单击child的时候也单击了parent，甚至还单击了body
+    // bubble 事件冒泡，从点击的子元素一直冒泡到最外层的元素，作用于每一层
+  </script>
+</body>
+</html>

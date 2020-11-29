@@ -7,6 +7,10 @@
   margin: 0;
   padding: 0;
 }
+body {
+  width: 100vw;
+  height: 100vh;
+}
 a {
   text-decoration: none;
   color: #000;
@@ -30,6 +34,9 @@ a:hover {
   border: 1px solid #cae0f3;
   border-top: 3px solid #9ec9ee;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 35vh;
 }
 .st-item .detail span {
   color: #df4d42;

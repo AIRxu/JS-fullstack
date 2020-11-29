@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>1111</li>
+    <li>22222222</li>
+    <li>3333333333</li>
+  </ul>
+  <script>
+    // 点击每一个li 输出li里面的文本内容
+    // 第一种：常规
+    // 只能选中当前页面上已有的节点，并且给它们绑定点击事件，后面再加上的节点就失效了
+
+    // const lis = document.querySelectorAll('li');
+    // lis.forEach((li) =>{
+    //   li.addEventListener('click',() =>{
+    //     console.log(li.innerText);
+    //   })
+    // })
+
+    setTimeout(function(){
+      // 先选中ul
+      const ul = document.querySelector('ul');
+      // 创建一个li节点： <li></li>
+      const li = document.createElement('li');
+      // 为li节点添加内容
+      li.innerHTML = '44444';
+      // console.log(li);
+      // 把li节点追加到ul内
+      ul.appendChild(li);
+    }, 3000)
+
+    // 第二种：给父节点绑定事件
+    const ul = document.querySelector('ul');
+    ul.addEventListener('click', function (event) {
+      console.log(event);
+      const target = event.target;
+      console.log(target);
+      // innerHTML指的是从对象的起始位置到终止位置的全部内容,包括Html标签。
+      // innerText指的是从起始位置到终止位置的内容,但它去除Html标签。
+      console.log(target.innerHTML);
+    })
+
+  </script>
+</body>
+</html>
