@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .drag{
+      left: 0;
+      top: 0;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="drag1" class="drag">H2</h2>
+  <script>
+    const H2 = document.querySelector('#drag1');
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const dragEleSize = H2.getBoundingClientRect();
+    
+    function onMouseMove(event) {
+      // console.log(event);
+      // 对移动距离X和Y做一个限制，让目标H2无法移出视窗范围！
+      let moveX = event.clientX, moveY = event.clientY;
+      let suitDistanceX = windowWidth - dragEleSize.width;
+      let suitDistanceY = windowHeight - dragEleSize.height;
+      if (moveX > suitDistanceX) {
+        moveX = suitDistanceX;
+      }
+      if (moveY > suitDistanceY) {
+        moveY = suitDistanceY;
+      }
+      H2.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+    }
+    H2.addEventListener('mousedown', () =>{
+      // 鼠标按下去才能拖动
+      // 拖动是由页面监控的
+      document.addEventListener('mousemove', onMouseMove)
+      // 鼠标松开点击的时候移除鼠标移动事件的绑定
+      document.addEventListener('mouseup', () => {
+        document.removeEventListener('mousemove', onMouseMove)
+      })
+    })
+  </script>
+</body>
+</html>
