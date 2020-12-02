@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 10px;
+  background: url("https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=6031a5e85f2c11dfc1d1b92353266255/e850352ac65c103851abacc9ba119313b17e89e7.jpg") bottom center;
+  background-size: 100%;
+}
+.keys {
+  display: -webkit-flex;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.keys .key {
+  margin: 1rem;
+  border: 0.4rem solid #000;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  padding: 1rem 0.5rem;
+  width: 10rem;
+  text-align: center;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 0.5rem #000;
+  transition: all 0.07 ease;
+}
+.keys .key div {
+  display: block;
+  font-size: 4rem;
+}
+.keys .key .sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #ffc600;
+}
