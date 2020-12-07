@@ -1,0 +1,93 @@
+<button id="btn">btn</button>
+
+<script>
+  const btn = document.getElementById('btn');
+  function onClick() {
+    console.log(this);
+    // 如果想让this指向obj呢？
+    console.log(this.a);
+  }
+  // click 运行的时候决定，addEventListener 会调用onClick
+  // 同时addEventListener就会帮我们把回调函数里面的this绑定为我们点击的元素
+  btn.addEventListener('click', function() {
+    // this === btn
+    // 自己定义this指向谁
+    onClick.call(obj)
+  })
+
+  // window = {
+  //   a: 'global variable'
+  // }
+  var obj = {
+    name: 'name',
+    a: 'obj a'
+  }
+  console.log(obj.name);
+  console.log(obj.sex);
+  var a = 'global variable';
+  function foo(b, c) {
+    // this === Window
+    console.log(this);
+    // 获取this下面的a属性
+    // 'global variable' + 'b' 拼接
+    console.log(this.a + b, c);
+  }
+  // let fetch = ??
+  document.createElement('div');
+  // fetch('www.baidu.com')
+  // 前端里面的全局的一个变量，只要打开一个浏览器窗口
+  // 就有一个window变量，var定义的全局变量和
+  // 我们平时用到的一些全局方法（setTimeout .. document），都在window下面
+  // 运行函数的时候才知道this指向哪里
+  // 1: 不加任何修饰,直接用()来调用函数，默认的this就指向window
+  // 2： foo.call() calls 也是调用这个函数的，可以通过使用它的第一个参数指定this指向哪儿,后面的就是形参
+  //     apply()方法
+  foo.call(window, 'b', 'c variable');
+  // 可以让this指向obj，调用obj里面的a而不是window里面的a
+  // foo.call(obj, 'b var', 'c var')
+  // apply第一个参数也是用来指定this指向，后面的参数就是函数需要的形参，但是必须用数组包起来不能直接放在那里
+  // call 和 apply的不同在于 放置形参的表现方式
+  foo.apply(obj, ['b var', 'c var']);
+  foo();
+</script>
+
+<script>
+  console.log('2',a);
+</script>
+
+<script>
+  var obj1 = {
+    a: 1,
+    say: function () {
+      console.log(this.a);
+    }
+  }
+  var obj2 = {
+    a:2,
+    say1: function () {
+      console.log(this);
+      // obj1.say();
+      obj1.say.call(this);
+      // obj2里面的this和obj1里的this没关系
+      // say方法被调用的时候this指向只和调用的方法有关系，和被调用的环境无关（也就是和obj2里面的this无关）
+    }
+  }
+  obj2.say1();
+
+  obj1.say.call(obj2);
+  obj1.say();
+  // let test = obj1.say();
+  // test()
+</script>
+
+<script>
+  // let 有块级作用域 var没有
+  // let 是更好地 var
+  // 块级作用域只在块内生效
+  {
+    var block1 = '123';
+    let block2 = '456';
+  }
+  console.log(block1);
+  console.log(block2);
+</script>
