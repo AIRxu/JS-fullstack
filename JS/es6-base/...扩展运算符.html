@@ -1,0 +1,52 @@
+<script>
+  const max = Math.max(-1, -9, -5);
+  let arr = [10, 9, 8, 7];
+  // 用...可以把数组展开为一个个数字
+  const max1 = Math.max(...arr);
+  console.log(max1);
+
+  let str = 'abcde';
+  // 如何将字符串变成数组 => [a, b, c, d, e]
+  let arr1 = [...str];
+  console.log(arr1);
+
+  let obj = {
+    name: 'name',
+    sex: 'man',
+    a:{
+      b:{
+        c:{
+          d:1
+        }
+      }
+    }
+  }
+  // 将对象字面量展开之后就是以键值对的形式存在
+  console.log('---------',{...obj});
+  // debugger 打断点
+  console.log('d', obj.a.b.c.d);
+  // object
+  // 直接赋值的时候 obj1和obj指向同一个地址
+  // let obj1 = obj;
+  // 怎么避免？ 将obj进行一次 拷贝、复制
+  // 进行浅复制
+  let obj1 = {...obj};
+  // 现在obj1就是一个新对象
+  delete obj1.name;
+
+  // 删除更深层的b的时候又会互相影响
+  delete obj1.a.b.c;
+  // 删除之后就会消失
+  // console.log('d', obj.a.b.c.d);
+
+  console.log(obj, obj1);
+
+
+  // es6 对函数的扩展：剩余参数
+  // 可以把接收到的剩余的参数整理成一个数组，但是rest必须是最后一个参数
+  // Uncaught SyntaxError: Rest parameter must be last formal parameter
+  // function sum(a, b, ...rest, c, d) {
+  //   console.log(rest);
+  // }
+  // sum(0, 1, 2, 3, 4, 5)
+</script>
