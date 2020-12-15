@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- for和forEach的区别 -->
+<script>
+  function test(a, b) {
+    if(!a || !b) {
+      return;
+    }
+    // 0~9
+    for(let i = 0; i < 10; i++) {
+      console.log('----');
+      if(i > 5) {
+        // return;  // => undefined
+        // break;  //跳出整个循环
+        continue;  //跳过本次循环 并且本次循环之后的代码都不执行
+      }
+      console.log(i);
+    }
+    return 'test11111'
+  }
+  let res = test(1, 2);
+  console.log(res);
+
+  console.log('======================');
+  let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  arr.forEach(function(num) {
+    console.log('前面');
+    // 并不会让整个for循环终止，只是让return后面的语句不执行
+    if(num > 5) return;
+    console.log(num);
+  })
+</script>
