@@ -17,43 +17,21 @@
     const btn = document.getElementById('btn');
     btn.addEventListener('click', function () {
       const val = document.getElementById('input').value;
-      // button 通过一个 ajax | http请求 向后端请求数据
       const xhr = new XMLHttpRequest();
-      // 向网易云后端要   url:统一资源定位符
-      // 1：请求的方法  get:http 规定的一个方法
-      // 2：request url
-      // 3：true 异步 false 同步
-      // get:通过URL把数据传给后端  https://juejin.cn/search?query=http 
       xhr.open('get',
-        `http://neteasecloudmusicapi.zhaoboy.com/search?keywords=${val}`,
-        true);
-      // 请求处理的过程 需要耗费时间
-      // 异步：不用你在这等着 等我拿到了资源 我再回调、通知你
-      // 同步：你就得在这等着 等我拿到了资源 我才会继续执行
-      // js 单线程：也不会阻塞
+        `http://127.0.0.1:8081/search?keywords=${val}`
+        ,true);
+      
+      // 此时用ajax上的onreadystatechange接收后端传过来的数据并渲染
       xhr.onreadystatechange = function () {
         console.log(xhr.readyState, xhr.response);
         if (xhr.readyState === 4 && xhr.status === 200) {
-          // console.log(JSON.parse(xhr.responseText));
-          let res = JSON.parse(xhr.response);
-          console.log(res);
-          document.getElementById('songs').innerHTML = res.result.songs.map(function(song) {
-            // 把artists这个数组解构出来 
-            let {artists} = song;
-            let singers = artists.map(function(artists) { return artists.name }).join('/');
-            return `
-            <li>
-              歌名:${song.name} 演唱:${singers} 专辑:${song.album.name}
-            </li>
-            `
-          })
+          document.getElementById('songs').innerHTML = `
+          接收到后端响应了：${xhr.response}
+          `
         }
       }
       xhr.send();
-      // 拿到了
-      // 无阻塞 不等数据回来 代码立刻执行
-      // console.log(xhr.response);
-      console.log('123456');
     })
 
   </script>
