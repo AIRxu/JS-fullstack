@@ -12,6 +12,7 @@
       height: 50px;
       border-radius: 50%;
     }
+
     .btn {
       outline: none;
       background-color: aqua;
@@ -24,10 +25,9 @@
   <button class="btn">文件上传</button>
   <img src=" " alt="" id="preview" hidden>
   <img src="./icon.png" alt="" id="flag" hidden>
-  <div class="circle"></div>
+  <!-- <div class="circle"></div> -->
   <!-- 画布 浏览器给不同的标签画出不同的内容 -->
-  <!-- canvas 纯空白：加粗 图片 边框 圆角 阴影 渐变 时间 ... 完全靠自己实现 -->
-
+  <!-- canvas 纯空白：加粗 图片 边框 圆角 阴影 渐变 事件 ... 完全靠自己实现 -->
   <canvas id="combine" width="290px" height="290px"></canvas>
   <!-- <input type="color">
   <input type="date"> -->
@@ -43,25 +43,30 @@
       // 1. 拿到内容
       // 2. 放到 img src
       // 谁触发了事件 event.target指向谁
+      // files是个数组，[0]代表第一张图，不支持多张图片
       let file = event.target.files[0];
       console.log(file);
       // 拿到的是 二进制 -> base64(编码)
       // Unicode：utf-8  utf-16
       // GBK  base64：用 a-z A-Z 0-9 .+ 这64个字符把内容编码成这64个字符组成的东西
+      // 用一个fileReader将图片由 二进制 -> base64(编码) 转换
       let fileReader = new FileReader();
       fileReader.onload = function (e) {
         // console.log(e.target === fileReader);
-        // console.log(e.target.result);
+        // 将这里选中的图片的base64编码赋值给preview图片框的src属性，让它把图片展示出来
         document.getElementById('preview').src = e.target.result;
-
+        // console.log(e.target.result);
         document.getElementById('preview').onload = function () {
+          // 等浏览器加载完图片才能画，要不然没东西画
+          // 从左上角0 0 画到 右下角 290 290
+          // drawImage用法: 1 选中要绘制的图片 2 给出要绘制的范围
           ctx.drawImage(document.getElementById('preview'), 0, 0, 290, 290);
           ctx.drawImage(document.getElementById('flag'), 0, 0, 290, 290);
         }
       }
-
       fileReader.readAsDataURL(file);
     })
+    // 给新加的按钮绑定原来上传文件的点击事件
     document.querySelector('.btn').addEventListener('click', function () {
       fileNode.click();
     })
