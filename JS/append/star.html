@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <!-- 语义化 html 挂载点-->
   <div class="wrapper">
@@ -38,9 +40,9 @@
     }
 
     class LikeButton {
-      constructor () {
+      constructor() {
         this.el = null;
-        this.state = { isLiked:false }
+        this.state = { isLiked: false }
       }
       render() {
         // 事件监听 ？？？？
@@ -48,7 +50,7 @@
         // dom createElement appendChild
         this.el = createDomFromString(`
           <button id="like-btn">
-            <span class="like-text">${this.state.isLiked?'取消':'点赞'}</span>
+            <span class="like-text">${this.state.isLiked ? '取消' : '点赞'}</span>
           </button>
         `)
         // 
@@ -56,23 +58,24 @@
         return this.el
       }
       // 一个方法就做一件事情
-      changeLikeText () {
+      changeLikeText() {
         // this.state.isLiked改变一下
         // console.log('--------');
         this.state.isLiked = !this.state.isLiked;
         // console.log(this.state.isLiked);
         const likeText = this.el.querySelector('.like-text');
-        likeText.innerHTML = this.state.isLiked?'取消':'点赞';
+        likeText.innerHTML = this.state.isLiked ? '取消' : '点赞';
       }
     }
 
     const wrapper = document.querySelector('.wrapper');
-    const likeButton = new LikeButton();
-    wrapper.appendChild(likeButton.render());
+    const likeButton1 = new LikeButton();
+    wrapper.appendChild(likeButton1.render());
     // 复用
     // const likeButton2 = new LikeButton();
     // wrapper.innerHTML += likeButton2.render();
 
   </script>
 </body>
+
 </html>

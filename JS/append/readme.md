@@ -28,7 +28,8 @@
   具体指向谁，取决于调用它的方式
   1. 作为对象方法调用的时候，this指向对象本身
   2. 作为事件函数调用时，this指向事件发生的元素
-  bind可以强行绑定函数内部的this指向谁
+  bind 可以强行绑定函数内部的this指向谁
+  call 立即执行
 
 - 封装 class  复用
   constructor 申明属性 this.state

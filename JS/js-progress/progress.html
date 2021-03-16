@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>progress</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .progress-bar{
+      margin-top: 100px;
+      /* width: 80%; */
+      height: 4px;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, .3);
+    }
+    /* .progress-bar2{
+      width: 50%;
+    } */
+    .progress-button{
+      position: absolute;
+      left: 0;
+      top: -5px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid black;
+      background-color: red;
+      box-sizing: border-box;
+      margin-left: -7px;
+    }
+    .progress{ 
+      width: 0%;
+      height: 100%;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <!--  1 拖拽
+        2 进度 -->
+  
+  <div class="progress-bar">
+    <div class="progress"></div>
+    <div class="progress-button"></div>
+  </div>
+
+  <div class="progress-bar2 progress-bar">
+    <div class="progress"></div>
+    <div class="progress-button"></div>
+  </div>
+  <script>
+    class Progress {
+      constructor(selector, option) {
+        this.wrap = document.querySelector(selector);
+        this.progressBtn = this.wrap.querySelector('.progress-button');
+        this.progress = this.wrap.querySelector('.progress')
+        // 在构造函数里面拿到初始化的参数style
+        this.initStyle(option.style);
+        this.initEvent();
+      }
+      initStyle(styleObj) {
+        for( let key in styleObj ) {
+          this.wrap.style[key] = styleObj[key];
+        }
+      }
+      initEvent() {
+        let downx = 0;
+        let btnLeft = 0;
+        const wraplen = this.wrap.offsetWidth;
+        const progressBtnlen = this.progressBtn.offsetWidth;
+        this.progressBtn.addEventListener('touchstart', (event) => {
+          // 移动端： 捏 缩放，多根手指 ，现在就用一根手指
+          const touch = event.touches[0];
+          btnLeft = parseInt(this.progressBtn.style.left || 0);
+          downx = touch.clientX;
+        })
+        this.progressBtn.addEventListener('touchmove', (event) => {
+          const touch = event.touches[0];
+          const diffx = touch.clientX - downx;
+          let left = diffx + btnLeft;
+          if (left <= 0) left = 0;
+          if (left >= wraplen) left = wraplen;
+          let percent = left / wraplen * 100;
+          this.progress.style.width = `${percent}%`;
+          this.progressBtn.style.left = `${left}px`;
+        })
+      }
+    }
+    new Progress('.progress-bar', {
+      style: {
+        width: '80%'
+      }
+    });
+    new Progress('.progress-bar2', {
+      style: {
+        width: '50%'
+      }
+    });
+  </script>
+</body>
+</html>

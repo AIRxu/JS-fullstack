@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- DOM挂载点 -->
+  <div class="wrapper"></div>
+  <script>
+    const createDomFromString = (domString) => {
+      const oDiv = document.createElement('div');
+      oDiv.innerHTML = domString;
+      return oDiv
+    }
+    // 设计这个类
+    class LikeButton {
+      constructor() {
+        // 申明属性
+        // 状态： 喜欢 不喜欢
+        this.state = {  //JSOn
+          isLiked: false  //bool
+        }
+      }
+      render() {
+        this.el = createDomFromString(`
+          <button id="like-btn">
+            <span class="like-text">${this.state.isLiked ? '取消' : '点赞'}</span>
+          </button>`);
+        this.el.addEventListener('click', this.changeLikeText.bind(this), false)
+        return this.el;
+      }
+      changeLikeText() {
+        this.setState({
+          isLiked: !this.state.isLiked
+        })
+      }
+      // setState 状态函数 类似灯开灯灭
+      setState(state) {
+        // insertBefore
+        // console.log(state);
+        // this.el  改变前的节点
+        const oldEl = this.el;  //再次渲染前的el
+        const parent = this.el.parentNode;
+        console.log(parent);
+        this.state = state; // 数据属性
+        this.el = this.render();  //再渲染一下  现任el
+        parent.insertBefore(this.el, oldEl);  //insertBefore
+        parent.removeChild(oldEl);  //react模式
+      }
+    }
+    // 取得变量名和类名不能相同，否则报错
+    const wrapper = document.querySelector('.wrapper');
+    const likeButton = new LikeButton();
+    wrapper.appendChild(likeButton.render());
+    // 点赞功能组件
+
+  </script>
+</body>
+
+</html>
