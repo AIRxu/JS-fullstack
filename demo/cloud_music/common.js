@@ -12,4 +12,12 @@ window.onload = function() {
   })
 
   // 先拿到 swiper 的数据
+  // bannerList数据
+  // 真的数据
+  // XMLHttpRequest 太难了  现代版就用fetch吧
+  fetch('http://localhost:3000/banner')
+    .then(data => data.json())    //  拿到数据之后先json格式化一下
+    .then(data => {
+      console.log(data);
+    })
 }
