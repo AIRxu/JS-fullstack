@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   HTX
   <script>
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/getPosts', true);    // 这里设置为true就是异步的，添加一个回调函数
-    xhr.timeout = 2000;
-    xhr.addEventListener('timeout', function() {
-      console.log('timeout');
-    })
-    xhr.addEventListener('readystatechange', function() {
-      if (xhr.readyState === 4) {
-        console.log(xhr.response, xhr.status);
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('POST', '/getPosts', true);    // 这里设置为true就是异步的，添加一个回调函数
+    // xhr.timeout = 2000;
+    // // query=js&type=user
+    // // query:关键词
+    // // type:类型
+    // // query=？ type=？
+    // xhr.setRequestHeader('X-Real-IP', '211.161.244.70')
+    // xhr.setRequestHeader('Content-Type', 'application/json')
+    // xhr.addEventListener('timeout', function () {
+    //   console.log('timeout');
+    // })
+    // xhr.addEventListener('readystatechange', function () {
+    //   if (xhr.readyState === 4) {
+    //     console.log(xhr.response, xhr.status);
+    //   }
+    // })
+    // // xhr.addEventListener('load')
+    // let obj = {
+    //   query: 'js', type: 'all'
+    // }
+    // // xhr.send(`query=js&type=all`);
+    // xhr.send(JSON.stringify(obj));
+    
+    // 封装为一个 axios函数
+    function axios(method, url, params = {}, headers = {}) {
+      const xhr = new XMLHttpRequest();
+      // open方法是用来建立HTTP请求的
+      xhr.open(method, url, true);
+      for (let key in headers) {
+        xhr.setRequestHeader(key, headers[key]);
+        console.log(key, headers[key]);
       }
-    })
-    // xhr.addEventListener('load')
-    xhr.send();
+      xhr.addEventListener('readystatechange', function () {
+
+      })
+      let data = headers['Content-Type'] && headers['Content-Type'] == 'application/json' ? JSON.stringify(params) : params;
+      xhr.send(data);
+    }
+
+    axios('POST', '/getPosts',
+      { type: 'all', query: 'js' },
+      {
+        'X-Real-IP': '211.161.244.70',
+        'Content-Type': 'application/json'
+      })
   </script>
 </body>
+
 </html>
