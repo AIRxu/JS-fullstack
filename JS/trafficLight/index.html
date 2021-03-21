@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      height: 100px;
+      width: 100px;
+      margin-top: 30px;
+      background-color: #666;
+      border-radius: 50%;
+    }
+
+    ul.stop li:nth-child(1) {
+      background-color: red;
+    }
+
+    ul.warn li:nth-child(2) {
+      background-color: yellow;
+    }
+
+    ul.pass li:nth-child(3) {
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <script>
+    const ul = document.querySelector('ul');
+    // setTimeout(() => {
+    //   ul.className = 'stop';
+    //   setTimeout(() => {
+    //     ul.className = 'warn';
+    //     setTimeout(() => {
+    //       ul.className = 'pass';
+    //     }, 1000);
+    //   }, 1000);
+    // }, 1000);
+
+    // promise    承诺，有可能实现也有可能不实现
+    // 异步：一年后买车，不是立马实现的
+    // 结果：定时1s .5s的时候出了问题，就不会实现
+    // let p = Promise(function(resolve, reject) {
+    //  promise 有三个状态参数
+    //  处理中：pendding
+    //  成功：fulfilled
+    //  失败：rejected
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 1000);
+    // })
+    let p = function () {
+      // 直接让p返回一个函数，每次return都返回调用函数并且生成一个新的promise动作（等待一秒并执行then中的任务）
+      return new Promise(function (resolve, reject) {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      })
+    }
+
+    setInterval(() => {
+      trafficLight();
+    }, 3000);
+    trafficLight();
+    function trafficLight() {
+      p().then(function () {
+        ul.className = 'stop';
+        return p();
+      })
+        .then(function () {
+          ul.className = 'warn';
+          return p();
+        })
+        .then(function () {
+          ul.className = 'pass';
+          return p();
+        })
+    }
+    // 如果失败了就执行catch函数
+    p().catch();
+
+  </script>
+</body>
+
+</html>
