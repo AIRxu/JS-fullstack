@@ -16,7 +16,6 @@
       --bg-color: green;
       --base-size: 10;
     }
-
     .box {
       /* 占据 90%-10px */
       /* width: calc(90% - 10px);
@@ -27,6 +26,20 @@
       background-color: var(--bg-color);
       padding: calc(var(--base-size) * 1px );
     }
+    @media (max-width:480px) {
+      :root{
+        --base-size:8;
+      }
+    }
+    @media only screen and (min-width:1200px) {
+      .box{
+        --base-size:20;
+      }
+    }
+    /* 兼容ipad */
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
+
+    } 
   </style>
 </head>
 
