@@ -1,0 +1,28 @@
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+  // http://neteasecloudmusicapi.zhaoboy.com/search?keywords=海阔天空
+  // 使用axios可以把我们域名后面的部分自动拼接成字符串
+  // ?后面每一个键值对都变成一个对象里面的内容
+  let params = {
+    query:'airXU',
+    type:'all',
+  }
+  params.user = 'airXU';
+  delete params.type;
+  console.log(params);
+  // 在对象上面进行内容上的操作比在字符串上面的操作要容易的多
+
+  let obj = {
+    keywords: '海阔天空'
+  }
+  // axios 是第三方 基于 XMLhttprequest 的库
+  // fetch 是浏览器原生的一个发请求的API（不是基于XML）
+  axios({
+    method: 'get',
+    url: 'http://localhost:3000/search',
+    params: obj
+  })
+  .then(function(res) {
+    console.log(res);
+  })
+</script>
