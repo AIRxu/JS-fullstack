@@ -3,4 +3,3 @@ linux
 
 ##  node
 1. 文件
-2. http: 请求(req) 响应(res)
