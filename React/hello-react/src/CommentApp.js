@@ -8,11 +8,15 @@ import './index.css'
 class CommentApp extends Component {
   render() {  //接口
     return(
-      <div>
-        <ComponentInput/>
+      <div className="wrapper">
+        <ComponentInput onSubmit={this.handleSubmitComment.bind(this)}/>
         <ComponentList/>
       </div>
     )
+  }
+
+  handleSubmitComment(comment) {
+    console.log(comment);
   }
 }
 
