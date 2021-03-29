@@ -1,0 +1,16 @@
+<script>
+  var name1 = 'xiaoming'
+  function test(){
+    var name = 'lihua';
+    function test1() {
+      debugger;
+      // 这里形成闭包的关键就在于这个调用本函数作用域外的name这条语句
+      // 简而言之闭包就是能够调用另外函数的作用域里的变量 的函数
+      // 访问成功后该变量是存在closure里面而不是local这一点在断点调试工具里面能够看见
+      console.log(name);
+    }
+    // 函数
+    return test1;
+  }
+  test()()
+</script>

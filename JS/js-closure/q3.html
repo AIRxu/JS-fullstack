@@ -1,0 +1,31 @@
+<script>
+  for (var i = 1; i <= 5; i++) {
+    setTimeout(function timer() {
+      console.log(i);
+    }, 1000);
+    // 异步代码 1s
+    // 1s 后 i早已加到6了
+    // 此时的五个定时器执行打印i 就输出5个6
+
+    // 如果改成let i = 1 就会生成1 2 3 4 5
+  }
+
+  // 借助函数作用域的特点，生成独立的i
+  for (var i = 0; i <= 5; i++) {
+    log(i);
+  }
+  function log(i) {
+    setTimeout(function timer() {
+      console.log(i);
+    }, 1000);
+  }
+
+  // 匿名函数
+  // 第一个 ()是定义  第二个()是调用
+  // 定义的同时就调用：立即执行函数IIFE
+  (function (i) {
+    setTimeout(function timer() {
+      console.log(i);
+    }, 1000);
+  })(i)
+</script>

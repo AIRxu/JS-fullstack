@@ -1,0 +1,15 @@
+<script>
+  var a = 1;
+  function test() {
+    a = 2;
+    return function() {
+      console.log(a);
+    }
+    // return后没有意义
+    var a = 3;
+  }
+  // test
+  var fn = text();
+  fn();
+  // a会输出什么
+</script>
