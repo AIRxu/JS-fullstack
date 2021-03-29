@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function CommentList() {
-  return (
-    <ul>
-      <li>
-        用户名：123123213213
+class ComponentList extends Component {
+  render() {
+    return (
+      <ul>
+        <li>
+          用户名：123123213213
       </li>
-      <li>
-        用户名：123123213213
+        <li>
+          用户名：123123213213
       </li>
-      <li>
-        用户名：123123213213
+        <li>
+          用户名：123123213213
       </li>
-      <li>
-        用户名：123123213213
+        <li>
+          用户名：123123213213
       </li>
-    </ul>
-  )
+      </ul>
+    )
+  }
 }
 
-export default CommentList;
+export default ComponentList;

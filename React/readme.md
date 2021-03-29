@@ -25,3 +25,8 @@
 - 用react 做项目  七天  UI不再是DOM而是组件
 - 新的UI（html css js）开发思想   组件化开发
 评论功能
+组件思想，把页面开发当成搭积木
+CommentApp
+  CommentInput
+  CommentList
+    Comment
