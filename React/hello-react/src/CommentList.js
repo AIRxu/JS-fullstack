@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
+import Comment from './Comment';
 
 class ComponentList extends Component {
   render() {
+    let { comments } = this.props;
+    console.log(this.props,"|||||||||");
+    // console.log(this.props);
     return (
-      <ul>
-        <li>
-          用户名：123123213213
-      </li>
-        <li>
-          用户名：123123213213
-      </li>
-        <li>
-          用户名：123123213213
-      </li>
-        <li>
-          用户名：123123213213
-      </li>
-      </ul>
+      <div>
+        { comments.map((comment, i) => <Comment comment={comment} key={i} />)}
+      </div>
+      // <div>
+      //   {
+      //     comments.map((comment, i) =>{
+      //       return (
+      //         <div key={i}>
+      //           {comment.username}:{comment.content}
+      //         </div>
+      //       )
+      //     })
+      //   }
+      // </div>
     )
   }
 }

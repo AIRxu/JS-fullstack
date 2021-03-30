@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1fdf91d-5208-4ba4-9cce-0a9d37a04b54" name="Default Changelist" comment="" />
+    <list default="true" id="e1fdf91d-5208-4ba4-9cce-0a9d37a04b54" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/React/hello-react/src/Comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/React/hello-react/src/Comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/React/hello-react/src/CommentApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/React/hello-react/src/CommentApp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/React/hello-react/src/CommentList.js" beforeDir="false" afterPath="$PROJECT_DIR$/React/hello-react/src/CommentList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/React/hello-react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/React/hello-react/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/React/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/React/readme.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

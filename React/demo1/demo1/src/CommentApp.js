@@ -19,8 +19,6 @@ class CommentApp extends Component {
     }
   }
   render() {  //接口
-    // 这里就不能用this.props了，CommentApp的父元素是root，不需要做什么了，想要数据得自己动手
-    // 子元素的输入值已经返回了，就在comment里面
     const { comments } = this.state;
     return (
       <div className="wrapper">
@@ -32,17 +30,10 @@ class CommentApp extends Component {
   }
 
   handleSubmitComment(comment) {
-    // console.log(comment,'----------');
     this.setState({
       comments:[comment, ...this.state.comments]  // ... 展开运算符
     })
-    // let { comments } = this.state;
-    // comments.unshift(comment);
-    // // console.log(comments);
-    // // 前面是key，后面是更新后的comments数据
-    // this.setState({
-    //   comments:comments
-    // })
+
   }
 }
 
