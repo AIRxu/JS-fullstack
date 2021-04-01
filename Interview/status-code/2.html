@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    <button type="button" onclick="clickCounter()">点我！</button>
+    <div id="result"></div>
+  </p>
+  <script>
+    // 刷新之后 js运行  有什么解决方案可以让之前的行为保存下来？
+    // let count = 0;
+    // let result = document.getElementById('result');
+    // function clickCounter() {
+    //   count++;
+    //   result.innerHTML = count;
+    // }
+    // Storage 将点击保存到本地 Storage 刻意练习
+    // 浏览器历史记录是存在本地的
+    
+    // cookie 是浏览器存储的文本， HTTP每次都会带着
+    // localStorage是本地存储，只要不清除一直都在
+    // 而sessionStorage是会话存储，本次会话结束就会自动清除
+
+    // localStorage 会把一些关键的css js本地化  下次打开页面加载的会很快
+    function clickCounter() {
+      const result = document.getElementById('result');
+      if (typeof Storage !== "undefined") { 
+        // 作用 浏览器支持本地Storage 浏览器嗅探  红宝书里
+        if (sessionStorage.clickCounter) {
+          sessionStorage.clickCounter = Number(sessionStorage.clickCounter) +1;
+        } else {
+          sessionStorage.clickCounter = 1;
+        }
+
+        result.innerHTML = `你在按钮上已经点击了${sessionStorage.clickCounter}次`
+      } else {
+        result.innerHTML = "Sorry,浏览器不支持";
+      }
+    }
+  </script>
+</body>
+</html>
