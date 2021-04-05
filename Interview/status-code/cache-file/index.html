@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+</head>
+
+<body>
+  <ul id="users"></ul>
+  <script>
+    window.onload = () => {
+      const ul = document.getElementById('users');
+      // 取出来的时候要把字符串parse成JSON格式
+      const users = JSON.parse(localStorage.getItem('users'));
+      
+      if (users) {
+        ul.innerHTML = users.map(user => `
+          <li>
+            ${user.username} - ${user.hometown}
+          </li>
+          `).join('');
+          return
+      }
+      fetch('/users')
+        .then(data => data.json())
+        .then(data => {
+          // console.log(data);
+          // 存的时候要把JSON格式转化成字符串
+          localStorage.setItem('users', JSON.stringify(data))
+          // map返回一个字符串模板的时候不要加 {} 要不然不显示
+          ul.innerHTML = data.map(user => `
+          <li>
+            ${user.username} - ${user.hometown}
+          </li>
+          `).join('');
+        })
+    }
+
+    // console.log(localStorage);
+  </script>
+</body>
+
+</html>
