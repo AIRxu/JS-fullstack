@@ -16,7 +16,9 @@ class App extends React.Component {
         { content: '分享', param: 'share' },
         { content: '问答', param: 'ask' },
       ],
+      value: 123456,
       tab: 'all',
+      isLoading: true,
       lists: []
     }
   }
@@ -31,13 +33,19 @@ class App extends React.Component {
         limit: 40
       }
     })
-      .then(res => {
-        console.log(res.data);
-        // 请求回来之后 我们要修改属性的状态
-        this.setState({
-          lists: res.data.data
-        })
+    .then(res => {
+      console.log(res.data);
+      // 请求回来之后 我们要修改属性的状态
+      this.setState({
+        lists: res.data.data,
+        isLoading: false
       })
+    })
+    .catch((err) => {
+      this.setState({
+        isLoading: 'false'
+      })
+    })
   }
   componentDidMount() {
     this.handleGetPost()
@@ -50,17 +58,36 @@ class App extends React.Component {
     const tab = event.target.getAttribute('data-tab');
     // 发个请求
     this.setState({
-      tab
+      tab,
+      isLoading:'false'
     }, () => {
       // setState是异步的，等更新完<tab></tab>之后再调用请求方法
       this.handleGetPost()
     })
   }
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value
+    })
+  }
   render() {
-    const { lists, tabs, tab } = this.state;
+    const { lists, tabs, tab, isLoading, value} = this.state;
     return (
       // js 表达式 都用 {} 包起来
       <div>
+        {/* defaultValue的方法是不受控组件
+            value+onChange方法是受控组件，其属性value存在于this.state内
+            当需要获取用户输入的值时
+            受控组件很好获取  直接  this.state.value就可以取到
+            不受控组件则需要操作dom元素才能获取到  document.getElementById("name").value
+            在现代前端开发中不使用DOM操作所以要用受控组件
+        */}
+        <input type="text" placeholder=" " defaultValue="123" id="name"/>
+        <input type="text" placeholder=" " value={value}
+        onChange={this.handleChange}
+        />
+        {/* react 不会渲染那些 空数组 null undefined false 的内容 */}
+        { isLoading && '正在加载中'}
         { lists.length === 0 && '暂无文章请重试'}
         {
           tabs.map((tabObj, i) => {
