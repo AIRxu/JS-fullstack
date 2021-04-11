@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search-debounce</title>
+</head>
+<body>
+  <input type="text" id="search">
+  <script>
+    const search = document.getElementById('search');
+    function input(event) {
+      console.log(this);
+      console.log(event.target.value);
+    }
+    search.addEventListener('input', debounce(input, 600))
+    // 把防抖功能封装成一个函数debounce
+    // 函数里面参数调用了函数，并且返回一个函数   这种称为高阶函数
+    function debounce(func, waitTime) {
+      return function(event) {
+        let timeout;
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+          func.call(this, event);
+        }, waitTime);
+      }
+    }
+  </script>
+</body>
+</html>
