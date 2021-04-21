@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import HomeHeader from './HomeHeader';
 import List from './List';
 import Chart from './Chart';
@@ -8,11 +8,15 @@ import Chart from './Chart';
 class index extends React.Component {
   render() {
     return (
-      <>
+      <div>
         <HomeHeader />
-        <Route path="/list" component />
-        <Route path="/chart" component />
-      </>
+        <Link to="/list">列表模式</Link>
+        <Link to="/chart">图表模式</Link>
+        {this.props.children}
+        <Route path="/" exact component={List} />
+        <Route path="/list" component={List} />
+        <Route path="/chart" component={Chart} />
+      </div>
     )
   }
 }
