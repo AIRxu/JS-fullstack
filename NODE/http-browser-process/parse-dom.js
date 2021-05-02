@@ -12,13 +12,12 @@ function emit(token) {
   console.log(token);
   currentToken = null;
 }
-function parse(htmlStr) {
+function parse(str) {
   state = start;
-  for (let c of htmlStr) {
+  for (let c of str) {
     state = state(c);
   }
 }
-
 function start (c) {
   if (c === '<') {
     return tagOpen
@@ -26,7 +25,6 @@ function start (c) {
     return start
   }
 }
-
 function tagOpen(c) {
   if (c === '/') {
     return endTagOpen
