@@ -1,5 +1,5 @@
 function match(string) {
-  state = start;
+  let state = start;
   // console.log(state);
   for( let a of string) {
     state = state (a);
@@ -29,7 +29,7 @@ function findB(char) {
   }
 }
 function end (){
-  state = end;
+  return end
 }
 
 console.log(match('a abc good'));
