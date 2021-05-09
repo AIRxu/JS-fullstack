@@ -115,6 +115,7 @@ function attributeValue(c) {
   console.log(c);
   // <div class="cls" id="myid"></div>
   if (c === '\"') {
+    // 右斜杠是转义字符，不使用的话无法表示后双引号
     // 匹配到" 本次就循环调用消耗掉这个字符
     return attributeValue
   } else if (c.match(/[a-zA-Z]/)) {
