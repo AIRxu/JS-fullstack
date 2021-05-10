@@ -1,18 +1,79 @@
+const css = require('css');
 let htmlStr = `
 <html>
   <head></head>
-  <body>
+  <body class="parent">
     <img a="a" b="b" />
     <span></span>
     <div class="cls" id="myid"></div>
   </body>
 </html>
 `
+let cssStr = `
+.parent .cls {
+  font-size: 16px;
+  width: 20px ;
+}
+#myid {
+  background-color: red;
+}
+`
+let rules = css.parse(cssStr).stylesheet.rules;
+
 let currentToken = null;
 let stack = [{ type: 'document', children: [] }]
 // 使用栈来操作匹配标签对，生成一颗DOM树
 parse(htmlStr);
 console.log(JSON.stringify(stack[0], null, 2));
+function match(selector, ele) {
+  if (!selector || !ele.attributes) {
+    return false
+  }
+  if (selector.charAt(0) === "#") {
+    // case1 id选择器与标签的id相同
+    let idAttr = ele.attributes.find(e => e.name === 'id');
+    if (idAttr && idAttr.value === selector.replace('#', '')) return true
+  } else if (selector.charAt(0) === ".") {
+    // case2 属性选择器与标签的属性相同
+    let classAttr = ele.attributes.find(e => e.name === 'class');
+    if (classAttr && classAttr.value === selector.replace('.', '')) return true
+  } else {
+    // 如果不符合上述两种，那么就看标签名是否和选择器的值相同
+    if (ele.tagName === selector) {
+      return true
+    }
+  }
+  return false
+}
+function computeCss(ele) {
+  // 计算符合这个ele 的所有css规则并且应用到这个节点上面
+  // 1：靠ele属性的父节点和css里面的选择器匹配
+  // 2: 匹配的时候是从后往前匹配
+  let elements = stack.slice(0).reverse();
+  if (!ele.computeStyle) ele.computeStyle = {};
+  for (let rule of rules) {
+    let selector = rule.selectors[0].split(' ').reverse();
+    if (!match(selector[0], ele)) {
+      // 如果都匹配不上就跳过本轮循环
+      continue;
+    }
+    // 看父级是否满足
+    // [{type: 'doc'}, {heml}, {header}]
+    // [#id .parent #parentID span]
+    let j = 1;
+    for( let i = 0; i < elements.length; i++ ) {
+      // 使用每一个选择器去匹配elements里面的元素
+      if (match(selector[j], elements[i])) j++;
+    }
+    if (j >= selector.length) {
+      // 匹配完成后将rule 里面的css 添加到ele里面的computeStyle
+      for(let declare of rule.declarations) {
+        const { property, value } = declare;
+        ele.computeStyle[property] = value;
+      }
+    }
+  }
+}
 function emit(token) {
   // console.log(token);
   let top = stack[stack.length - 1];
@@ -24,6 +85,7 @@ function emit(token) {
       children: [],
       attributes: token.attributes
     }
+    computeCss(element);
     stack.push(element);
     // if (!top.children) top.children = [];
     // console.log(top.children);
@@ -112,7 +174,7 @@ function attributeName(c) {
   }
 }
 function attributeValue(c) {
-  console.log(c);
+  // console.log(c);
   // <div class="cls" id="myid"></div>
   if (c === '\"') {
     // 右斜杠是转义字符，不使用的话无法表示后双引号

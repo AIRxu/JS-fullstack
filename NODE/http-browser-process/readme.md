@@ -45,3 +45,23 @@ js怎么被执行的？浏览器引擎 解析js V8
   parse-dom.js  DOM树 AST抽象语法树
 - 生成中间代码
 - 生成目标代码（机器可读的）
+
+
+## 浏览器 匹配css 规则
+
+
+
+## 
+display: flex | block | inline-block | grid
+justify-content
+position: 
+float:
+
+
+## normal flow
+行内元素(inline-level-box): 水平方向从左往右，一个接一个地布局,垂直方向默认会与baseline对齐(类似写英文的时候下面要和第三条线对齐的情况)
+块级元素(block-level-box): 垂直方向从上往下，一个接一个地布局
+relative 定位: 
+
+## 脱离文档流
+  float: left position
