@@ -37,7 +37,7 @@ clear：both（left,right）
 - 盒子在垂直方向上，从上往下往下布局
 - 垂直方向上的距离由 margin 决定，
   同一个 BFC 之内， 垂直方向上 block-level-box margin会折叠 (留白，够了就行)
-- 由于有 float 元素，一个盒子大小可能会缩小，除非他新建 一个 BFC(overflow清理浮动)
+- 由于有 float 元素，一个盒子大小可能会缩小，除非他新建 一个 BFC (overflow清理浮动)
 - BFC 区域 不会 float 重叠 (左侧固定，右边自适应)
 
 
