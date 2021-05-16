@@ -41,3 +41,16 @@ margin:
 - will-change 的值是 transform 或 perspective
 - filter 的值不是 none 或 will-change 的值是 filter(只在 Firefox 下生效).
 - contain 的值是 paint (例如: contain: paint;)
+
+## layout
+
+- normal flow
+- float
+- position
+- flex
+实现一个简单的flex布局
+
+容器
+flex-direction: row / cloumn
+justify-content: center / start / end
+align-item: center / start / end
