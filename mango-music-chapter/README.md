@@ -18,8 +18,8 @@
   components  路由级别组件 
   Loading 服务于任何listAPI 列表组件  通用组件
 
-  1. 数据请求阶段， 显示loading , 
-  2. 数据来了后， 隐藏他， 
+  1. 数据请求阶段， 显示loading
+  2. 数据来了后， 隐藏loading
   父组件 要给loading 传参  
 
 - api/  分层的能力， 职责分离 是代码复杂， 且大型化的前提， 
