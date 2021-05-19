@@ -1,5 +1,6 @@
-// 模块化， 排行榜的所有接口， 一个文件干一件事情
-// import jsonp from './jsonp'; // 走真正的请求 QQ 跨域请求解决方案 
+// export default 直接引入就可以 
+// 不加 default就需要用{}结构
+import jsonp from './jsonp';  // 走一个真正的请求 QQ音乐  跨域请求的解决方案
 import { URL, PARAM, OPTION } from './config';
 // 获取排行榜列表的数据
 export function getRankingList() {
@@ -10,10 +11,10 @@ export function getRankingList() {
     needNewCode: 1,
     _: new Date().getTime()
   });
-  console.log(data);
+  // console.log(data);
+  return jsonp(URL.rankingList, data, OPTION)
 }
 
-export function getRankingInfo() {
+// export function getRankingInfo() {
 
-}
-
+// }
