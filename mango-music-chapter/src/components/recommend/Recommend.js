@@ -3,7 +3,8 @@ import './recommend.styl'; // webpack
 import Swiper from 'swiper';
 import 'swiper/swiper.min.css';
 import Loading from '../../common/loading/Loading';
-import LazyLoad from 'react-lazyload';  //图片延迟加载，适用于页面中图片较多
+import LazyLoad, { forceCheck } from 'react-lazyload';  //图片延迟加载，适用于页面中图片较多
+import Scroll from '@/common/scroll/Scroll'
 
 // 1. 路由
 // 2. redux
@@ -25,6 +26,7 @@ class Recommend extends React.Component {
     // 1. 用假数据将页面做出来
     // 2. 未来再改成接口
     this.state = {
+      refreshScroll: false,
       newAlbums: [],  // 数据驱动的界面
       loading: true,
       title: '正在加载',
@@ -46,6 +48,12 @@ class Recommend extends React.Component {
       ]  // 轮播图的数据 没必要去redux
     }
   }
+  componentDidUpdate() {
+    //组件更新后，如果实例化了better-scroll并且需要刷新就调用refresh()函数
+    if (this.bScroll && this.props.refresh === true) {
+        this.bScroll.refresh();
+    }
+  }
   componentDidMount() {
     new Swiper(".slider-container", {
       loop: true,
@@ -62,8 +70,13 @@ class Recommend extends React.Component {
       .then(res => {
         this.setState({
           loading: false,
-          newAlbums: res
-        })
+          newAlbums: res.albumlib.data.list
+        }), () => {
+          this.setState({
+            refreshScroll: true
+          })
+        }
+        console.log(res);
       })
     // setTimeout(() => {
     //   this.setState({
@@ -73,8 +86,9 @@ class Recommend extends React.Component {
   }
   render() {
     // 切页面
+    // console.log(this.state.newAlbums);
     let albums = this.state.newAlbums.map(item => (
-      <div className="album-wrapper" key={item.id}>
+      <div className="album-wrapper" key={item.album_id}>
         <div className="left">
           <LazyLoad height={60}>
             <img src={item.img} alt={item.name} width="100%" height="100%" />
@@ -82,42 +96,49 @@ class Recommend extends React.Component {
         </div>
         <div className="right">
           <div className="album-name">
-            {item.name}
+            {item.album_name}
           </div>
           <div className="singer-name">
-            {item.singer}
+            {item.singers[0].singer_name}
           </div>
           <div className="public-time">
-            {item.publicTime}
+            {item.public_time}
           </div>
         </div>
       </div>
     ))
     return (
       <div className="music-recommend">
-        <div className="slider-container">
-          <div className="swiper-wrapper">
-            {
-              this.state.sliderList.map(slider => {
-                return (
-                  <div className="swiper-slide" key={slider.id}>
-                    <a href={slider.linkUrl} className="slider-nav">
-                      <img src={slider.picUrl} alt="" width="100%" height="100%" />
-                    </a>
-                  </div>
-                );
-              })
-            }
+        <Scroll refresh={this.state.refreshScroll}
+        onScroll= {(e) => {
+          console.log(e);
+          forceCheck();
+        }}
+        >
+          <div className="slider-container">
+            <div className="swiper-wrapper">
+              {
+                this.state.sliderList.map(slider => {
+                  return (
+                    <div className="swiper-slide" key={slider.id}>
+                      <a href={slider.linkUrl} className="slider-nav">
+                        <img src={slider.picUrl} alt="" width="100%" height="100%" />
+                      </a>
+                    </div>
+                  );
+                })
+              }
+            </div>
+            <div className="swiper-pangination"></div>
           </div>
-          <div className="swiper-pangination"></div>
-        </div>
 
-        <div className="album-container">
-          <h1 className="title">最新专辑</h1>
-          <div className="album-list">
-            {albums}
+          <div className="album-container">
+            <h1 className="title">最新专辑</h1>
+            <div className="album-list">
+              {albums}
+            </div>
           </div>
-        </div>
+        </Scroll>
         <Loading show={this.state.loading} title={this.state.title} />
       </div>
     )
