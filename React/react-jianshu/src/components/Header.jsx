@@ -17,11 +17,11 @@ class Header extends Component {
     }
     return true;
   }
-  shouldComponentUpdate (nextProps, nextState) {
-    let isSame = this.shallowEqual(nextProps, this.props) &&
-    this.shallowEqual(nextState, this.state);
-    return !isSame;
-  }
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   let isSame = this.shallowEqual(nextProps, this.props) &&
+  //   this.shallowEqual(nextState, this.state);
+  //   return !isSame;
+  // }
   render() {
     console.log('header render');
     const {title} = this.props;
