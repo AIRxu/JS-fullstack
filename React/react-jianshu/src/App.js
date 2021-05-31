@@ -1,26 +1,26 @@
+import ImmutableComponent from './components/common'
 import React from 'react';
-import './App.css';
-import Header from './components/Header.jsx'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store/index'
+import Header from './components/Header/Header'
+import Home from './pages/home'
+import Detail from './pages/detail'
+// import { fromJS } from '_immutable@4.0.0-rc.12@immutable';
 
 
-class App extends React.Component {
-  // 什么行为会引发 组件重新渲染
-  state = {
-    title:'123'
-  }
-  componentDidMount () {
-    setTimeout(() => {
-      this.setState({
-        title:'1234'
-      })
-    }, 3000)
-  }
+class App extends ImmutableComponent {
   render() {
     return (
-      <div>
-        123456
-        <Header title={this.state.title}/>
-      </div>
+      <Provider store={store} >
+        <BrowserRouter>
+          <Header />
+          {/* / */}
+          {/* /detail有包含关系,记得加exact */}
+          <Route path="/" component={Home} exact />
+          <Route path="/detail" component={Detail} />
+        </BrowserRouter>
+      </Provider>
     )
   }
 }
