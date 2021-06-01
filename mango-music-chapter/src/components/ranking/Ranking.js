@@ -6,7 +6,8 @@ import './ranking.styl'; // webpack
 import Loading from '@/common/loading/Loading';
 // ranking里面有多个向外输出的函数，我们要用哪个就把该函数名写到{}内 解构出来
 import { getRankingList } from '@/api/ranking';
-import LazyLoad from 'react-lazyload';
+import Scroll from '@/common/scroll/Scroll'
+import LazyLoad, { forceCheck } from 'react-lazyload';
 // 把请求数据的业务，分离到api目录下
 // console.log(getRankingList);
 
@@ -16,6 +17,7 @@ class Ranking extends React.Component {
     this.state = {
       title: '正在加载排行榜',
       loading: true,
+      refreshScroll: true,
       rankingList: []
     }
   }
@@ -26,44 +28,54 @@ class Ranking extends React.Component {
         this.setState({
           loading: false,
           rankingList: res.data.topList
+        }, () => {
+          this.setState({
+            refreshScroll: false
+          })
         })
       })
   }
   render() {
     return (
       <div className="music-ranking">
-        <div className="ranking-list">
-          {
-            this.state.rankingList.map(ranking => {
-              return (
-                <div className="ranking-wrapper" key={ranking.id}>
-                  <div className="left">
-                    <LazyLoad height={100}>
-                      <img src={ranking.picUrl} alt={ranking.title} />
-                    </LazyLoad>
-                  </div>
-                  <div className="right">
-                    <h1 className="ranking-title">
-                      {ranking.title}
-                    </h1>
-                    {
-                      ranking.songList.map((song, index) => {
-                        return(
-                          <div className="top-song" key={index}>
-                            <span className="index">{index + 1}</span>
-                            <span>{song.songname}</span>
+        <Scroll refresh={this.state.refreshScroll}
+          onScroll={() => { forceCheck() }}
+        >
+          <div className="ranking-list">
+            {
+              this.state.rankingList.map(ranking => {
+                return (
+                  <div className="ranking-wrapper" 
+                    key={ranking.id}
+                  >
+                    <div className="left">
+                      <LazyLoad height={100}>
+                        <img src={ranking.picUrl} alt={ranking.title} />
+                      </LazyLoad>
+                    </div>
+                    <div className="right">
+                      <h1 className="ranking-title">
+                        {ranking.title}
+                      </h1>
+                      {
+                        ranking.songList.map((song, index) => {
+                          return (
+                            <div className="top-song" key={index}>
+                              <span className="index">{index + 1}</span>
+                              <span>{song.songname}</span>
                             &nbsp;-&nbsp;
-                            <span className="song">{song.singername}</span>
-                          </div>
-                        )
-                      })
-                    }
+                              <span className="song">{song.singername}</span>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
                   </div>
-                </div>
-              )
-            })
-          }
-        </div>
+                )
+              })
+            }
+          </div>
+        </Scroll>
         <Loading show={this.state.loading} title={this.state.title}></Loading>
       </div>
     )

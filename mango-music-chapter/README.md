@@ -1,3 +1,7 @@
+给数据建模
+MVVM React  奥利奥  界面由数据驱动  前端的设计模式
+MVC Model View Controller  后端的web开发模式
+
 1. 做react/vue项目， 仿一个音乐类的
 2. 做一个上线的业务 编程思路 架构 技能点
 

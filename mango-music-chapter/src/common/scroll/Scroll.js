@@ -1,50 +1,64 @@
-// didi 黄轶
-import React from 'react';
-// 常用的好的包
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types'
-import BScroll from 'better-scroll';
-import './scroll.styl'
-// 容器，父组件
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import BScroll from "better-scroll"
+import "./scroll.styl"
+
 class Scroll extends React.Component {
-  componentDidMount () {
-    this.scrollView = ReactDOM.findDOMNode(this.refs.scrollView);
-    // console.log(this.scrollView);
-    if (!this.bScroll) {  // 防止多次渲染  只实例化一次：单例
-      this.bScroll = new BScroll(this.scrollView, {
-        probeType: 3,
-        click: this.props.click
-      })
-      if (this.props.onScroll) {
-        this.bScroll.on('scroll', (scroll) => {
-          this.props.onScroll(scroll)
-        })
-      }
+    componentDidUpdate() {
+        //组件更新后，如果实例化了better-scroll并且需要刷新就调用refresh()函数
+        if (this.bScroll && this.props.refresh === true) {
+            this.bScroll.refresh();
+        }
     }
-  }
-  refresh() {
-    if (this.bScroll) {
-      this.bScroll.refresh();
+    componentDidMount() {
+        this.scrollView = ReactDOM.findDOMNode(this.refs.scrollView);
+        if (!this.bScroll) {
+            this.bScroll = new BScroll(this.scrollView, {
+                //实时派发scroll事件
+                probeType: 3,
+                click: this.props.click
+            });
+
+            if (this.props.onScroll) {
+                this.bScroll.on("scroll", (scroll) => {
+                    this.props.onScroll(scroll);
+                });
+            }
+
+        }
     }
-  }
-  render() {
-    // console.log(this.props.children);
-    return (
-      <div className="scroll-view" ref="scrollView">
-        {this.props.children}
-      </div>
-    )
-  }
+    componentWillUnmount() {
+        this.bScroll.off("scroll");
+        this.bScroll = null;
+    }
+    refresh() {
+        if (this.bScroll) {
+            this.bScroll.refresh();
+        }
+    }
+    render() {
+        return (
+            <div className="scroll-view" ref="scrollView">
+                {/*获取子组件*/}
+                {this.props.children}
+            </div>
+        );
+    }
 }
 
 Scroll.defaultProps = {
-  click: true,
-  onScroll: null
-}
+    click: true,
+    refresh: false,
+    onScroll: null
+};
+
 Scroll.propTypes = {
-  click: PropTypes.bool,
-  refresh: PropTypes.bool,
-  onScroll: PropTypes.func
-}
+    //是否启用点击
+    click: PropTypes.bool,
+    //是否刷新
+    refresh: PropTypes.bool,
+    onScroll: PropTypes.func
+};
 
 export default Scroll

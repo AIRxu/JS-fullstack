@@ -1,5 +1,7 @@
 import jsonp from './jsonp'; 
-import { URL, PARAM, OPTION } from './config';
+import { URL, PARAM,
+  //  OPTION 
+  } from './config';
 export function getNewAlbum() {
   const data = Object.assign({}, PARAM, {
     g_tk: 1278911659,
