@@ -2,6 +2,7 @@ import ImmutableComponent from './components/common'
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import './util/request'
 import store from './store/index'
 import Header from './components/Header/Header'
 import Home from './pages/home'

@@ -4,12 +4,15 @@ const defaultState = fromJS({
   homeList: []
 })
 export default function (state = defaultState, action) {
-  console.log(action.homeList);
+  // console.log(action.homeList);
+  // console.log(action);
   switch (action.type) {
     case GET_HOME_LIST:
-      return {
-        homeList: action.homeList
-      }
+      const newHomeList = action.homeList;
+      return state.set('homeList', newHomeList);
+      // return {
+      //   homeList: action.homeList
+      // }
     default:
       return defaultState
   }
