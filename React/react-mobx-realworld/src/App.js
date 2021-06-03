@@ -10,7 +10,7 @@ const store = {
 }
 function App() {
   return (
-    <Provider {...Provider}>
+    <Provider {...store}>
       <Home />
     </Provider>
   );

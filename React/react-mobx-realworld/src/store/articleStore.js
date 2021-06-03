@@ -1,25 +1,31 @@
 import {observable, action} from 'mobx'
-import axios from '_axios@0.21.1@axios'
+import axios from 'axios'
+const LIMIT = 10;
 
 class ArticleStore {
   // observable 相当于 state
   // es @ 装饰器
+  LIMIT = LIMIT;
   @observable articles = {
-    all:[],
-    cars:[]
+    all:[]
   }
+  @observable total = 0;
   @action
   getArticle(tag, offset=0) {
     axios.get('/articles', {
       params: {
-        tag,
+        tag: tag === 'all' ? null : tag,
         offset,
         limit: LIMIT
       }
     })
-    .then(res => {
+    .then((res) => {
       // 修改store
-      this.articles[tag] = res.articles
+      console.log(res.articles);
+      this.articles[tag] = res.articles;
+      this.total = res.articlesCount;
     })
   }
 }
+
+export default new ArticleStore();
