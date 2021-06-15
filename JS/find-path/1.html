@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      width: 700px;
+      font-size: 0;
+    }
+
+    .cell {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: gray;
+      border-right: 1px solid white;
+      border-bottom: 1px solid white;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+  </div>
+  <script>
+    const container = document.getElementById('container');
+    let arr = new Array(10000).fill(0);
+    arr.forEach(() => {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      container.appendChild(cell);
+      cell.addEventListener('mousemove', () => {
+        if (mouse) {
+          cell.style.backgroundColor = 'black';
+        }
+      })
+    })
+    let mouse = false;
+    document.addEventListener('mousedown', () => {
+      mouse = true;
+    })
+    document.addEventListener('mouseup', () => {
+      mouse = false;
+    })
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+    })
+    function findPath(map, start, end) {
+      let queue = [start];
+      function insert(x, y) {
+        // map是一个一维数组
+        // x，y是坐标点
+        // y*100定位到这一行，再加上x就可以定位到它在数组中的位置
+        if(map[y * 100 + x] !== 0) return;
+        if(x < 0 || x >= 100 || y < 0 || y >= 100) return;
+        // 已经走过的点置为3
+        map[y * 100 + x] = 3;
+        container.children[y * 100 + x].style.backgroundColor = 'green';
+        queue.push([x, y]);
+      }
+      while(queue.length) {
+        let [x, y] = queue.shift();
+        if(x === end[0] && y === end[1]) {
+          return true
+        }
+        insert(x + 1, y);
+        insert(x - 1, y);
+        insert(x, y + 1);
+        insert(x, y - 1);
+      }
+      return false
+    }
+    // findPath(arr, [0,0], [50,50]);
+  </script>
+</body>
+
+</html>
