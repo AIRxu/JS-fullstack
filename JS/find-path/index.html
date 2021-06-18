@@ -33,6 +33,7 @@
   <div id="container">
   </div>
   <script>
+    // 1、画格子
     const container = document.getElementById('container');
     let arr = new Array(10000).fill(0);
     arr.forEach(() => {
@@ -55,6 +56,7 @@
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault()
     })
+    // 广度优先遍历
     function findPath(map, start, end) {
       let queue = [start];
       function insert(x, y) {

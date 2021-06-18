@@ -1,0 +1,17 @@
+<script>
+  class Animal {
+    constructor () {
+      this.live = 'land'
+    }
+  }
+  class Cat extends Animal {
+    constructor () {
+      super();
+      this.sound = '喵喵喵'
+    }
+  }
+  let c1 = new Cat();
+  console.log(c1);
+  // 继承：我没有，但是我可以从父类取到
+  console.log(Animal.prototype);
+</script>
