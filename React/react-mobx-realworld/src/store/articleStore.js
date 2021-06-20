@@ -7,9 +7,12 @@ class ArticleStore {
   // es @ 装饰器
   LIMIT = LIMIT;
   @observable articles = {
-    all:[]
+    all:[],
+    tag1:[],
+    tag2:[]
   }
   @observable total = 0;
+  @observable tags = [];
   @action
   getArticle(tag, offset=0) {
     axios.get('/articles', {
@@ -24,6 +27,17 @@ class ArticleStore {
       console.log(res.articles);
       this.articles[tag] = res.articles;
       this.total = res.articlesCount;
+    })
+  }
+  handleTabChange = (key) => {
+    // console.log(key);
+    this.getArticle(key);
+  }
+  @action
+  getTags() {
+    axios.get('/tags').then(res => {
+      console.log(res);
+      this.tags = res.tags;
     })
   }
 }
