@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.core.min.js"></script>
+</head>
+<body>
+  <script>
+    function parseAge (age) {
+      if(!_.isString(age)) throw new Error("请传递一个字符串");
+      parsedAge = parseInt(age, 10);
+      if(_.isNaN(parsedAge)) {
+        console.log("传递的参数无法被正确解析");
+        return 0;
+      }
+      return parsedAge;
+    }
+  </script>
+</body>
+</html>
